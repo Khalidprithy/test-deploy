@@ -11,7 +11,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   email String @unique
@@ -62,4 +61,30 @@ model Stream {
   streamRestrictedData   String?
 
   match  Match  @relation(fields: [matchId], references: [id])
+}
+
+enum VideoType {
+  None
+  Youtube
+  Sportmonk
+}
+enum ThumbnailType {
+  None
+  Url
+  Image
+}
+
+
+model Highlight {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  fixtureId String?
+  title String
+  shortDescription String?
+  status Boolean
+  youtubeUrl String?
+  youtubeThumbnail String?
+  videoType VideoType @default(None)
+  thumbnailType ThumbnailType @default(None)
+  imageUrl String?
+  imageFile String?
 }

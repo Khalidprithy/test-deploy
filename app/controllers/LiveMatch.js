@@ -61,6 +61,78 @@ export const createLiveMatch = async (req, res) => {
     }
 };
 
+
+export const updateMatch = async (req, res) =>{
+    console.log('Inside update match');
+
+    const id = req.params.id;
+    try {
+        const updatedMatchData = req.body;
+
+        let finalUpdatedMatchdata = {...updatedMatchData}
+
+        let streamRestricted = [];
+        let streamingData = [];
+
+        console.log("Update data",finalUpdatedMatchdata);
+
+        finalUpdatedMatchdata?.streamingSources?.map(source => {
+
+            if(source?.streamType === 'Restricted'){
+                source?.streamRestrictedData?.map(data =>{
+                    streamRestricted.push({
+                        name: data.name,
+                        value: data.value
+                    })
+                })
+            }
+
+            streamingData.push({
+                streamTitle: source?.streamTitle,
+                streamType: source?.streamType,
+                resulation: source?.resulation,
+                platform: source?.platform,
+                isPremium: source?.isPremium,
+                portraitWatermark: source?.portraitWatermark,
+                landscapeWatermark: source?.landscapeWatermark,
+                streamUrl: source?.streamUrl,
+                headers: source?.headers,
+                streamKey: source?.streamKey,
+                streamRestrictedData: source?.streamType === "Restricted" ? JSON.stringify(streamRestricted) : ""
+            });
+        });
+
+        // Create Match
+        const updatedMatchedDataCollection = await prisma.Match.update({
+            where:{
+                id: id
+            },
+            data: {
+                matchTime: finalUpdatedMatchdata?.matchTime,
+                matchTitle: finalUpdatedMatchdata?.matchTitle,
+                teamOneName: finalUpdatedMatchdata?.teamOneName,
+                teamOneImage: finalUpdatedMatchdata?.teamOneImage,
+                teamTwoName: finalUpdatedMatchdata?.teamTwoName,
+                teamTwoImage: finalUpdatedMatchdata?.teamTwoImage,
+                matchStatus: finalUpdatedMatchdata?.matchStatus,
+                streamingSources: {
+                    createMany: {
+                        data: streamingData
+                    }
+                }
+            }
+        });
+
+        res.json({
+            updatedMatchedDataCollection
+        })
+    
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ message: 'Failed to update match, Try again' });  
+    }
+}
+
 // Get all matches
 
 export const getAllMatches = async (req, res) => {
