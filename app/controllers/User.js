@@ -1,5 +1,6 @@
 import prisma from '../../prisma/index.js';
 
+// Find all users
 export const findAllUser = async (req, res) => {
     console.log('Inside find all user');
     try {
@@ -11,6 +12,8 @@ export const findAllUser = async (req, res) => {
     }
 };
 
+
+// Find user by ID
 export const findUser = async (req, res) => {
     console.log('Inside find user');
     try {
@@ -28,6 +31,8 @@ export const findUser = async (req, res) => {
     }
 };
 
+
+// Update a user
 export const updateUser = async (req, res) => {
     console.log('Inside update user');
     try {
@@ -47,14 +52,12 @@ export const updateUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
-    console.log('Inside update user');
+    console.log('Inside delete user');
+    const id = req.params.id;
     try {
-        const user = await prisma.User.update({
+        const user = await prisma.User.delete({
             where: {
-                email: 'admin@super.com'
-            },
-            data: {
-                name: 'Super Admin'
+                id: id
             }
         });
         res.json(user);

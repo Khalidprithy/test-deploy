@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import prisma from '../../prisma/index.js';
 
+// Sign Up
 export const createUser = async (req, res) => {
     console.log('Inside create user');
     try {
@@ -48,6 +49,7 @@ export const createUser = async (req, res) => {
     }
 };
 
+// Login
 export const Login = async (req, res) => {
     try {
         const { email, password } = req.body;

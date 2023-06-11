@@ -27,6 +27,7 @@ model User {
 
 model Match {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+  fixtureId       String?
   matchTime       String  
   matchTitle      String    
   teamOneName     String    
@@ -35,6 +36,13 @@ model Match {
   teamTwoImage    String
   matchStatus     Boolean   
   streamingSources Stream[]
+}
+
+enum StreamType {
+  OwnStream
+  Restricted
+  M3u8
+  Web
 }
 
 
@@ -47,23 +55,11 @@ model Stream {
   platform          String
   portraitWatermark String  
   landscapeWatermark String 
-  streamType        String   
-  streamUrl         String   
+  streamType        StreamType @default(OwnStream)   
+  streamUrl         String?   
   headers           String?
   streamKey         String? 
+  streamRestrictedData   String?
 
-  match            Match    @relation(fields: [matchId], references: [id])
-}
-
-
-model Users {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  email    String     
-  posts Posts[]  
-}
-
-model Posts {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId
-  users  Users    @relation(fields: [userId], references: [id])
+  match  Match  @relation(fields: [matchId], references: [id])
 }
