@@ -1,24 +1,25 @@
 import prisma from '../../prisma/index.js';
 
+// Add match data
 export const createLiveMatch = async (req, res) => {
     console.log('Inside create match');
     const matchData = req.body;
 
-    const streamingData = [];
-    const streamRestricted= [];
+    let streamingData = [];
+    let streamRestricted = [];
 
     try {
-
         // Check Restricted
         matchData?.streamingSources?.map(source => {
-
-            if(source?.streamType === 'Restricted'){
-                source?.streamRestrictedData?.map(data =>{
+            if (source?.streamType === 'Restricted') {
+                streamRestricted = [];
+                source?.streamRestrictedData?.map((data, index) => {
                     streamRestricted.push({
+                        id: index,
                         name: data.name,
                         value: data.value
-                    })
-                })
+                    });
+                });
             }
 
             streamingData.push({
@@ -32,7 +33,8 @@ export const createLiveMatch = async (req, res) => {
                 streamUrl: source?.streamUrl,
                 headers: source?.headers,
                 streamKey: source?.streamKey,
-                streamRestrictedData: source?.streamType === "Restricted" ? JSON.stringify(streamRestricted) : ""
+                streamRestrictedData:
+                    source?.streamType === 'Restricted' ? JSON.stringify(streamRestricted) : ''
             });
         });
 
@@ -61,89 +63,66 @@ export const createLiveMatch = async (req, res) => {
     }
 };
 
-
-export const updateMatch = async (req, res) =>{
+// Update match data
+export const updateMatch = async (req, res) => {
     console.log('Inside update match');
-
     const id = req.params.id;
+    const updatedMatchData = req.body;
     try {
-        const updatedMatchData = req.body;
-
-        let finalUpdatedMatchdata = {...updatedMatchData}
-
-        let streamRestricted = [];
-        let streamingData = [];
-
-        console.log("Update data",finalUpdatedMatchdata);
-
-        finalUpdatedMatchdata?.streamingSources?.map(source => {
-
-            if(source?.streamType === 'Restricted'){
-                source?.streamRestrictedData?.map(data =>{
-                    streamRestricted.push({
-                        name: data.name,
-                        value: data.value
-                    })
-                })
-            }
-
-            streamingData.push({
-                streamTitle: source?.streamTitle,
-                streamType: source?.streamType,
-                resulation: source?.resulation,
-                platform: source?.platform,
-                isPremium: source?.isPremium,
-                portraitWatermark: source?.portraitWatermark,
-                landscapeWatermark: source?.landscapeWatermark,
-                streamUrl: source?.streamUrl,
-                headers: source?.headers,
-                streamKey: source?.streamKey,
-                streamRestrictedData: source?.streamType === "Restricted" ? JSON.stringify(streamRestricted) : ""
-            });
-        });
-
-        // Create Match
-        const updatedMatchedDataCollection = await prisma.Match.update({
-            where:{
-                id: id
-            },
+        const updatedMatch = await prisma.Match.update({
+            where: { id: id }, // Provide the match ID you want to update
             data: {
-                matchTime: finalUpdatedMatchdata?.matchTime,
-                matchTitle: finalUpdatedMatchdata?.matchTitle,
-                teamOneName: finalUpdatedMatchdata?.teamOneName,
-                teamOneImage: finalUpdatedMatchdata?.teamOneImage,
-                teamTwoName: finalUpdatedMatchdata?.teamTwoName,
-                teamTwoImage: finalUpdatedMatchdata?.teamTwoImage,
-                matchStatus: finalUpdatedMatchdata?.matchStatus,
+                matchTime: updatedMatchData.matchTime,
+                matchTitle: updatedMatchData.matchTitle,
+                teamOneName: updatedMatchData.teamOneName,
+                teamOneImage: updatedMatchData.teamOneImage,
+                teamTwoName: updatedMatchData.teamTwoName,
+                teamTwoImage: updatedMatchData.teamTwoImage,
+                matchStatus: updatedMatchData.matchStatus,
                 streamingSources: {
-                    createMany: {
-                        data: streamingData
-                    }
+                    updateMany: updatedMatchData.streamingSources.map(streamingData => ({
+                        where: {
+                            id: streamingData.id
+                        },
+
+                        data: {
+                            streamTitle: streamingData?.streamTitle,
+                            streamType: streamingData?.streamType,
+                            resulation: streamingData?.resulation,
+                            platform: streamingData?.platform,
+                            isPremium: streamingData?.isPremium,
+                            portraitWatermark: streamingData?.portraitWatermark,
+                            landscapeWatermark: streamingData?.landscapeWatermark,
+                            streamUrl: streamingData?.streamUrl,
+                            headers: streamingData?.headers,
+                            streamKey: streamingData?.streamKey,
+                            streamRestrictedData: streamingData?.streamRestrictedData
+                        }
+                    }))
                 }
             }
         });
 
-        res.json({
-            updatedMatchedDataCollection
-        })
-    
+        console.log(updatedMatch);
+
+        res.json(updatedMatch);
     } catch (error) {
         console.error(error);
-        return res.status(500).send({ message: 'Failed to update match, Try again' });  
     }
-}
+};
 
 // Get all matches
-
 export const getAllMatches = async (req, res) => {
     try {
-        const matches = await prisma.Match.findMany();
+        const matches = await prisma.Match.findMany({
+            include: { streamingSources: true }
+        });
         return res.status(200).send(matches);
     } catch (error) {
         console.error(error);
         return res.status(500).send({ message: 'Failed to fetch matchs, Try again' });
     }
-}
+};
 
 // Get all streams
 export const getAllStreams = async (req, res) => {
@@ -154,23 +133,55 @@ export const getAllStreams = async (req, res) => {
         console.error(error);
         return res.status(500).send({ message: 'Failed to fetch stream, Try again' });
     }
-}
+};
+
+// Find one stream
+export const getOneStream = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const stream = await prisma.Stream.findUnique({
+            where: {
+                id: id
+            }
+        });
+        return res.status(200).send(stream);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ message: 'Failed to fetch stream, Try again' });
+    }
+};
 
 // Get single match by ID
 export const getSingleMatche = async (req, res) => {
-
     const id = req.params.id;
     try {
         const matche = await prisma.Match.findUnique({
             where: {
-              id: id,
+                id: id
             },
-          })
+            include: {
+                streamingSources: true
+            }
+        });
         return res.status(200).send(matche);
     } catch (error) {
         console.error(error);
         return res.status(500).send({ message: 'Failed to fetch match, Try again' });
     }
-}
+};
 
-
+// Delete single match by ID
+export const deleteOneMatche = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const matche = await prisma.Match.delete({
+            where: {
+                id: id
+            }
+        });
+        return res.status(200).send(matche);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ message: 'Failed to fetch match, Try again' });
+    }
+};

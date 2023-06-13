@@ -1,0 +1,51 @@
+{
+    "matchTime": "16865858763",
+    "matchTitle": "Home Matches",
+    "teamOneName": "Spain",
+    "teamOneImage": "https://api.sofascore.app/api/v1/team/4711/image",
+    "teamTwoName": "Germany",
+    "teamTwoImage": "https://api.sofascore.app/api/v1/team/4701/image",
+    "matchStatus": true,
+    "streamingSources": [
+        {
+            "id": "6487ee2e97d820beeadcc2f4",
+            "streamTitle": "This Data is updated",
+            "streamType": "Restricted",
+            "resulation": "720p",
+            "platform": "both",
+            "isPremium": false,
+            "portraitWatermark": "{\"top\": 0.0,  \"bottom\": null, \"left\": null, \"right\":0.0,\"height\": 0.0,\"width\": 0.0, \"image\": \"http://windfootball.com/public/logo/logo1.png\"}",
+            "landscapeWatermark": "{\"top\":0.0,  \"bottom\": null, \"left\": null,\"right\": 0.0,\"height\": 0.0,\"width\": 0.0, \"image\": \"http://windfootball.com/public/logo/logo1.png\"}",
+            "streamUrl": "https://nl.presenccunderwell.xyz/uk_btsport2/index.m3u8",
+            "headers": "{\"Origin\":\"https:\\/\\/aesport.tv\",\"Referer\":\"https:\\/\\/aesport.tv\\/\",\"User-Agent\":\"Mozilla\\/5.0 (Linux; Android 6.0; Nexus 5 Build\\/MRA58N) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/108.0.0.0 Mobile Safari\\/537.36\"}",
+            "streamKey": "",
+            "streamRestrictedData": [
+                {
+                    "name": "This header is updated",
+                    "value": "This value is updated"
+                },
+                {
+                    "name": "This second header is updated",
+                    "value": "This second value is updated"
+                },
+                {
+                    "name": "This another header is added",
+                    "value": "This another value is added"
+                }
+            ]
+        },
+        {
+            "id": "6487ee2e97d820beeadcc2f5",
+            "streamTitle": "Ownstream stream title is updated",
+            "streamType": "OwnStream",
+            "resulation": "1080p",
+            "platform": "IOS",
+            "isPremium": true,
+            "portraitWatermark": "{\"top\": 0.0,  \"bottom\": null, \"left\": null, \"right\":0.0,\"height\": 0.0,\"width\": 0.0, \"image\": \"http://windfootball.com/public/logo/logo1.png\"}",
+            "landscapeWatermark": "{\"top\":0.0,  \"bottom\": null, \"left\": null,\"right\": 0.0,\"height\": 0.0,\"width\": 0.0, \"image\": \"http://windfootball.com/public/logo/logo1.png\"}",
+            "streamUrl": "https://nl.presenccunderwell.xyz/uk_btsport2/index.m3u8",
+            "headers": "{\"Origin\":\"https:\\/\\/aesport.tv\",\"Referer\":\"https:\\/\\/aesport.tv\\/\",\"User-Agent\":\"Mozilla\\/5.0 (Linux; Android 6.0; Nexus 5 Build\\/MRA58N) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/108.0.0.0 Mobile Safari\\/537.36\"}",
+            "streamKey": "something added here"
+        }
+    ]
+}

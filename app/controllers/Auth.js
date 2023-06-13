@@ -38,14 +38,10 @@ export const createUser = async (req, res) => {
             { expiresIn: '1h' }
         );
 
-        return res
-            .status(201)
-            .send({ message: 'Admin created successful', token });
+        return res.status(201).send({ message: 'Admin created successful', token });
     } catch (error) {
         console.error(error);
-        return res
-            .status(500)
-            .send({ message: 'Failed to create admin, Try again' });
+        return res.status(500).send({ message: 'Failed to create admin, Try again' });
     }
 };
 
@@ -70,6 +66,15 @@ export const Login = async (req, res) => {
         } else {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+};
+
+// Logout
+export const Logout = async (req, res) => {
+    try {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Something went wrong' });
