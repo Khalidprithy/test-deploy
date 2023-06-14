@@ -1,6 +1,7 @@
 import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
+import appSettingRoute from './app/routes/appSettings.js';
 import authRoute from './app/routes/auth.js';
 import userFixture from './app/routes/fixture.js';
 import highlightRoute from './app/routes/highlight.js';
@@ -22,6 +23,7 @@ app.use('/api/v1', userRoute);
 app.use('/api/v1', userMatch);
 app.use('/api/v1', userFixture);
 app.use('/api/v1', highlightRoute);
+app.use('/api/v1', appSettingRoute);
 
 app.get('/', (req, res) => {
     res.send('Turboooo Root Server');

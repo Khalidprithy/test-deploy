@@ -1,51 +1,53 @@
 {
-    "matchTime": "16865858763",
-    "matchTitle": "Home Matches",
-    "teamOneName": "Spain",
-    "teamOneImage": "https://api.sofascore.app/api/v1/team/4711/image",
-    "teamTwoName": "Germany",
-    "teamTwoImage": "https://api.sofascore.app/api/v1/team/4701/image",
-    "matchStatus": true,
-    "streamingSources": [
-        {
-            "id": "6487ee2e97d820beeadcc2f4",
-            "streamTitle": "This Data is updated",
-            "streamType": "Restricted",
-            "resulation": "720p",
-            "platform": "both",
-            "isPremium": false,
-            "portraitWatermark": "{\"top\": 0.0,  \"bottom\": null, \"left\": null, \"right\":0.0,\"height\": 0.0,\"width\": 0.0, \"image\": \"http://windfootball.com/public/logo/logo1.png\"}",
-            "landscapeWatermark": "{\"top\":0.0,  \"bottom\": null, \"left\": null,\"right\": 0.0,\"height\": 0.0,\"width\": 0.0, \"image\": \"http://windfootball.com/public/logo/logo1.png\"}",
-            "streamUrl": "https://nl.presenccunderwell.xyz/uk_btsport2/index.m3u8",
-            "headers": "{\"Origin\":\"https:\\/\\/aesport.tv\",\"Referer\":\"https:\\/\\/aesport.tv\\/\",\"User-Agent\":\"Mozilla\\/5.0 (Linux; Android 6.0; Nexus 5 Build\\/MRA58N) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/108.0.0.0 Mobile Safari\\/537.36\"}",
-            "streamKey": "",
-            "streamRestrictedData": [
-                {
-                    "name": "This header is updated",
-                    "value": "This value is updated"
-                },
-                {
-                    "name": "This second header is updated",
-                    "value": "This second value is updated"
-                },
-                {
-                    "name": "This another header is added",
-                    "value": "This another value is added"
-                }
-            ]
-        },
-        {
-            "id": "6487ee2e97d820beeadcc2f5",
-            "streamTitle": "Ownstream stream title is updated",
-            "streamType": "OwnStream",
-            "resulation": "1080p",
-            "platform": "IOS",
-            "isPremium": true,
-            "portraitWatermark": "{\"top\": 0.0,  \"bottom\": null, \"left\": null, \"right\":0.0,\"height\": 0.0,\"width\": 0.0, \"image\": \"http://windfootball.com/public/logo/logo1.png\"}",
-            "landscapeWatermark": "{\"top\":0.0,  \"bottom\": null, \"left\": null,\"right\": 0.0,\"height\": 0.0,\"width\": 0.0, \"image\": \"http://windfootball.com/public/logo/logo1.png\"}",
-            "streamUrl": "https://nl.presenccunderwell.xyz/uk_btsport2/index.m3u8",
-            "headers": "{\"Origin\":\"https:\\/\\/aesport.tv\",\"Referer\":\"https:\\/\\/aesport.tv\\/\",\"User-Agent\":\"Mozilla\\/5.0 (Linux; Android 6.0; Nexus 5 Build\\/MRA58N) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/108.0.0.0 Mobile Safari\\/537.36\"}",
-            "streamKey": "something added here"
-        }
-    ]
+    "name": "appsettings",
+    "notificationType": "OneSignal",
+    "oneSignalAppID": "your_one_signal_app_id",
+    "oneSignalApiKey": "your_one_signal_api_key",
+    "firebaseServerKey": "your_firebase_server_key",
+    "firebaseTopics": "sports,ios-settings",
+    "androidSettings": {
+        "androidPrivacyPolicy": "your_privacy_policy",
+        "androidTermsAndCondition": "your_terms_and_condition",
+        "androidAppShareLink": "your_app_share_link",
+        "androidAppDefalutPage": "your_app_default_page",
+        "androidAppPublishControl": true,
+        "androidHideLiveByVersionCode": 1,
+        "androidAdsType": "your_ads_type",
+        "androidClickControl": 1,
+        "androidGoogleAppId": "your_google_app_id",
+        "androidGoogleAppOpenAddCode": "your_google_app_open_add_code",
+        "androidGoogleBannerAdsCode": "your_google_banner_ads_code",
+        "androidGoogleInterstitialAdsCode": "your_google_interstitial_ads_code",
+        "androidGoogleNativeAdsCode": "your_google_native_ads_code",
+        "androidGoogleRewardedAdsCode": "your_google_rewarded_ads_code",
+        "androidVersionName": "your_version_name",
+        "androidVersionCode": "your_version_code",
+        "androidForceUpdate": true,
+        "androidAppUrl": "your_app_url",
+        "androidButtonText": "your_button_text",
+        "androidDescription": "your_description"
+    },
+    "iosSettings": {
+        "iosPrivacyPolicy": "your_privacy_policy",
+        "iosTermsAndCondition": "your_terms_and_condition",
+        "iosAppShareLink": "your_app_share_link",
+        "iosAppRatingLink": "your_app_rating_link",
+        "iosAppDefalutPage": "your_app_default_page",
+        "iosAppPublishControl": true,
+        "iosHideLiveByVersionCode": 1,
+        "iosAdsType": "your_ads_type",
+        "iosClickControl": 1,
+        "iosGoogleAppId": "your_google_app_id",
+        "iosGoogleAppOpenAddCode": "your_google_app_open_add_code",
+        "iosGoogleBannerAdsCode": "your_google_banner_ads_code",
+        "iosGoogleInterstitialAdsCode": "your_google_interstitial_ads_code",
+        "iosGoogleNativeAdsCode": "your_google_native_ads_code",
+        "iosGoogleRewardedAdsCode": "your_google_rewarded_ads_code",
+        "iosVersionName": "your_version_name",
+        "iosVersionCode": "your_version_code",
+        "iosForceUpdate": true,
+        "iosAppUrl": "your_app_url",
+        "iosButtonText": "your_button_text",
+        "iosDescription": "your_description"
+    }
 }
