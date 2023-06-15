@@ -6,22 +6,12 @@ export const createLiveMatch = async (req, res) => {
     const matchData = req.body;
 
     let streamingData = [];
-    let streamRestricted = [];
+
+    console.log('Streaming data', streamingData);
 
     try {
-        // Check Restricted
+        // Check headers
         matchData?.streamingSources?.map(source => {
-            if (source?.streamType === 'Restricted') {
-                streamRestricted = [];
-                source?.streamRestrictedData?.map((data, index) => {
-                    streamRestricted.push({
-                        id: index,
-                        name: data.name,
-                        value: data.value
-                    });
-                });
-            }
-
             streamingData.push({
                 streamTitle: source?.streamTitle,
                 streamType: source?.streamType,
@@ -31,10 +21,8 @@ export const createLiveMatch = async (req, res) => {
                 portraitWatermark: source?.portraitWatermark,
                 landscapeWatermark: source?.landscapeWatermark,
                 streamUrl: source?.streamUrl,
-                headers: source?.headers,
                 streamKey: source?.streamKey,
-                streamRestrictedData:
-                    source?.streamType === 'Restricted' ? JSON.stringify(streamRestricted) : ''
+                headers: source?.streamType === 'Restricted' ? source?.headers : ''
             });
         });
 
@@ -70,7 +58,7 @@ export const updateMatch = async (req, res) => {
     const updatedMatchData = req.body;
     try {
         const updatedMatch = await prisma.Match.update({
-            where: { id: id }, // Provide the match ID you want to update
+            where: { id: id },
             data: {
                 matchTime: updatedMatchData.matchTime,
                 matchTitle: updatedMatchData.matchTitle,
@@ -95,28 +83,25 @@ export const updateMatch = async (req, res) => {
                             landscapeWatermark: streamingData?.landscapeWatermark,
                             streamUrl: streamingData?.streamUrl,
                             headers: streamingData?.headers,
-                            streamKey: streamingData?.streamKey,
-                            streamRestrictedData: streamingData?.streamRestrictedData
+                            streamKey: streamingData?.streamKey
+                            // headers: streamingData?.streamType === 'Restricted' ? handleRestrictedStreamingData(streamingData) : ''
                         }
                     }))
                 }
             }
         });
 
-        console.log(updatedMatch);
-
-        res.json(updatedMatch);
+        return res.status(200).send(updatedMatch);
     } catch (error) {
         console.error(error);
+        return res.status(500).send({ message: 'Failed to fetch matchs, Try again' });
     }
 };
 
 // Get all matches
 export const getAllMatches = async (req, res) => {
     try {
-        const matches = await prisma.Match.findMany({
-            include: { streamingSources: true }
-        });
+        const matches = await prisma.Match.findMany();
         return res.status(200).send(matches);
     } catch (error) {
         console.error(error);

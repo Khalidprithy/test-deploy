@@ -146,6 +146,16 @@ export const updateAppSettings = async (req, res) => {
     const newAndroidSettings = dbAppSettings.androidSettings;
     const newIosSettings = dbAppSettings.iosSettings;
 
+    // let keys = Object.keys(newAndroidSettings);
+    if (dbAppSettings !== null) {
+        Object.keys(newAndroidSettings).forEach(item => {
+            console.log(item);
+            newAndroidSettings[item] = androidSettings?.item || newAndroidSettings?.item;
+        });
+    }
+
+    console.log('Updated Items', newAndroidSettings);
+
     let finalAndroidSettings;
     let finalIosSettings;
 
@@ -153,31 +163,32 @@ export const updateAppSettings = async (req, res) => {
         finalAndroidSettings = {
             ...newAndroidSettings,
             androidPrivacyPolicy: androidSettings?.androidPrivacyPolicy || newAndroidSettings?.androidPrivacyPolicy,
-            androidTermsAndCondition: androidSettings?.androidTermsAndCondition || newAndroidSettings?.androidPrivacyPolicy,
-            androidAppShareLink: androidSettings?.androidAppShareLink || newAndroidSettings?.androidPrivacyPolicy,
-            androidAppDefalutPage: androidSettings?.androidAppDefalutPage || newAndroidSettings?.androidPrivacyPolicy,
-            androidAppPublishControl: androidSettings?.androidAppPublishControl || newAndroidSettings?.androidPrivacyPolicy,
-            androidHideLiveByVersionCode: androidSettings?.androidHideLiveByVersionCode || newAndroidSettings?.androidPrivacyPolicy,
-            androidAdsType: androidSettings?.androidAdsType || newAndroidSettings?.androidPrivacyPolicy,
-            androidClickControl: androidSettings?.androidClickControl || newAndroidSettings?.androidPrivacyPolicy,
-            androidGoogleAppId: androidSettings?.androidGoogleAppId || newAndroidSettings?.androidPrivacyPolicy,
-            androidGoogleAppOpenAddCode: androidSettings?.androidGoogleAppOpenAddCode || newAndroidSettings?.androidPrivacyPolicy,
-            androidGoogleBannerAdsCode: androidSettings?.androidGoogleBannerAdsCode || newAndroidSettings?.androidPrivacyPolicy,
-            androidGoogleInterstitialAdsCode: androidSettings?.androidGoogleInterstitialAdsCode || newAndroidSettings?.androidPrivacyPolicy,
-            androidGoogleNativeAdsCode: androidSettings?.androidGoogleNativeAdsCode || newAndroidSettings?.androidPrivacyPolicy,
-            androidGoogleRewardedAdsCode: androidSettings?.androidGoogleRewardedAdsCode || newAndroidSettings?.androidPrivacyPolicy,
-            androidVersionName: androidSettings?.androidVersionName || newAndroidSettings?.androidPrivacyPolicy,
-            androidVersionCode: androidSettings?.androidVersionCode || newAndroidSettings?.androidPrivacyPolicy,
-            androidForceUpdate: androidSettings?.androidForceUpdate || newAndroidSettings?.androidPrivacyPolicy,
-            androidAppUrl: androidSettings?.androidAppUrl || newAndroidSettings?.androidPrivacyPolicy,
-            androidButtonText: androidSettings?.androidButtonText || newAndroidSettings?.androidPrivacyPolicy,
-            androidDescription: androidSettings?.androidDescription || newAndroidSettings?.androidPrivacyPolicy
+            androidTermsAndCondition: androidSettings?.androidTermsAndCondition || newAndroidSettings?.androidTermsAndCondition,
+            androidAppShareLink: androidSettings?.androidAppShareLink || newAndroidSettings?.androidAppShareLink,
+            androidAppDefalutPage: androidSettings?.androidAppDefalutPage || newAndroidSettings?.androidAppDefalutPage,
+            androidAppPublishControl: androidSettings?.androidAppPublishControl || newAndroidSettings?.androidAppPublishControl,
+            androidHideLiveByVersionCode: androidSettings?.androidHideLiveByVersionCode || newAndroidSettings?.androidHideLiveByVersionCode,
+            androidAdsType: androidSettings?.androidAdsType || newAndroidSettings?.androidAdsType,
+            androidClickControl: androidSettings?.androidClickControl || newAndroidSettings?.androidClickControl,
+            androidGoogleAppId: androidSettings?.androidGoogleAppId || newAndroidSettings?.androidGoogleAppId,
+            androidGoogleAppOpenAddCode: androidSettings?.androidGoogleAppOpenAddCode || newAndroidSettings?.androidGoogleAppOpenAddCode,
+            androidGoogleBannerAdsCode: androidSettings?.androidGoogleBannerAdsCode || newAndroidSettings?.androidGoogleBannerAdsCode,
+            androidGoogleInterstitialAdsCode:
+                androidSettings?.androidGoogleInterstitialAdsCode || newAndroidSettings?.androidGoogleInterstitialAdsCode,
+            androidGoogleNativeAdsCode: androidSettings?.androidGoogleNativeAdsCode || newAndroidSettings?.androidGoogleNativeAdsCode,
+            androidGoogleRewardedAdsCode: androidSettings?.androidGoogleRewardedAdsCode || newAndroidSettings?.androidGoogleRewardedAdsCode,
+            androidVersionName: androidSettings?.androidVersionName || newAndroidSettings?.androidVersionName,
+            androidVersionCode: androidSettings?.androidVersionCode || newAndroidSettings?.androidVersionCode,
+            androidForceUpdate: androidSettings?.androidForceUpdate || newAndroidSettings?.androidForceUpdate,
+            androidAppUrl: androidSettings?.androidAppUrl || newAndroidSettings?.androidAppUrl,
+            androidButtonText: androidSettings?.androidButtonText || newAndroidSettings?.androidButtonText,
+            androidDescription: androidSettings?.androidDescription || newAndroidSettings?.androidDescription
         };
     }
 
     if (dbAppSettings !== null) {
         finalIosSettings = {
-            ...newAndroidSettings,
+            ...newIosSettings,
             iosPrivacyPolicy: iosSettings?.iosPrivacyPolicy || newIosSettings?.iosPrivacyPolicy,
             iosTermsAndCondition: iosSettings?.iosTermsAndCondition || newIosSettings?.iosTermsAndCondition,
             iosAppShareLink: iosSettings?.iosAppShareLink || newIosSettings?.iosAppShareLink,
@@ -226,90 +237,3 @@ export const updateAppSettings = async (req, res) => {
         return res.status(500).send({ message: 'Failed to update app settingss, Try again' });
     }
 };
-
-// // Update Android Settings
-// export const updateAndroidSettings = async (req, res) => {
-//     console.log('Inside update Android settings');
-//     const id = req.params.id;
-//     const updatedAndroidSettingsData = req.body;
-
-//     try {
-//         const updatedAndroidSettings = await prisma.AndroidSettings.update({
-//             where: { id: id },
-//             data: {
-//                 privacyPolicy: updatedAndroidSettingsData.privacyPolicy,
-//                 termsAndCondition: updatedAndroidSettingsData.termsAndCondition,
-//                 appShareLink: updatedAndroidSettingsData.appShareLink,
-//                 appDefalutPage: updatedAndroidSettingsData.appDefalutPage,
-//                 appPublishControl: updatedAndroidSettingsData.appPublishControl,
-//                 hideLiveByVersionCode: updatedAndroidSettingsData.hideLiveByVersionCode,
-//                 adsType: updatedAndroidSettingsData.adsType,
-//                 clickControl: updatedAndroidSettingsData.clickControl,
-//                 googleAppId: updatedAndroidSettingsData.googleAppId,
-//                 googleAppOpenAddCode: updatedAndroidSettingsData.googleAppOpenAddCode,
-//                 googleBannerAdsCode: updatedAndroidSettingsData.googleBannerAdsCode,
-//                 googleInterstitialAdsCode: updatedAndroidSettingsData.googleInterstitialAdsCode,
-//                 googleNativeAdsCode: updatedAndroidSettingsData.googleNativeAdsCode,
-//                 googleRewardedAdsCode: updatedAndroidSettingsData.googleRewardedAdsCode,
-//                 versionName: updatedAndroidSettingsData.versionName,
-//                 versionCode: updatedAndroidSettingsData.versionCode,
-//                 forceUpdate: updatedAndroidSettingsData.forceUpdate,
-//                 appUrl: updatedAndroidSettingsData.appUrl,
-//                 buttonText: updatedAndroidSettingsData.buttonText,
-//                 description: updatedAndroidSettingsData.description
-//             }
-//         });
-
-//         console.log(updatedAndroidSettings);
-
-//         return res
-//             .status(200)
-//             .send({ message: 'Android settings updated', updatedAndroidSettings });
-//     } catch (error) {
-//         console.error(error);
-//         return res.status(500).send({ message: 'Failed to update Android settingss, Try again' });
-//     }
-// };
-
-// // Update Ios Settings
-// export const updateIosSettings = async (req, res) => {
-//     console.log('Inside update Ios settings');
-//     const id = req.params.id;
-//     const updatedIosSettingsData = req.body;
-
-//     try {
-//         const updatedIosSettings = await prisma.IosSettings.update({
-//             where: { id: id },
-//             data: {
-//                 privacyPolicy: updatedIosSettingsData.privacyPolicy,
-//                 termsAndCondition: updatedIosSettingsData.termsAndCondition,
-//                 appShareLink: updatedIosSettingsData.appShareLink,
-//                 appRatingLink: updatedIosSettingsData.appRatingLink,
-//                 appDefalutPage: updatedIosSettingsData.appDefalutPage,
-//                 appPublishControl: updatedIosSettingsData.appPublishControl,
-//                 hideLiveByVersionCode: updatedIosSettingsData.hideLiveByVersionCode,
-//                 adsType: updatedIosSettingsData.adsType,
-//                 clickControl: updatedIosSettingsData.clickControl,
-//                 googleAppId: updatedIosSettingsData.googleAppId,
-//                 googleAppOpenAddCode: updatedIosSettingsData.googleAppOpenAddCode,
-//                 googleBannerAdsCode: updatedIosSettingsData.googleBannerAdsCode,
-//                 googleInterstitialAdsCode: updatedIosSettingsData.googleInterstitialAdsCode,
-//                 googleNativeAdsCode: updatedIosSettingsData.googleNativeAdsCode,
-//                 googleRewardedAdsCode: updatedIosSettingsData.googleRewardedAdsCode,
-//                 versionName: updatedIosSettingsData.versionName,
-//                 versionCode: updatedIosSettingsData.versionCode,
-//                 forceUpdate: updatedIosSettingsData.forceUpdate,
-//                 appUrl: updatedIosSettingsData.appUrl,
-//                 buttonText: updatedIosSettingsData.buttonText,
-//                 description: updatedIosSettingsData.description
-//             }
-//         });
-
-//         console.log(updatedIosSettings);
-
-//         return res.status(200).send({ message: 'Ios settings updated', updatedIosSettings });
-//     } catch (error) {
-//         console.error(error);
-//         return res.status(500).send({ message: 'Failed to update Ios settingss, Try again' });
-//     }
-// };

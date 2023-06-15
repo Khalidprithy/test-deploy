@@ -66,6 +66,7 @@ model Match {
 }
 
 
+
 model Stream {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   matchId String @db.ObjectId
@@ -79,6 +80,7 @@ model Stream {
   streamUrl         String?   
   headers           String?
   streamKey         String? 
+  streamRestrictedData   String?
 
   match  Match  @relation(fields: [matchId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
@@ -113,10 +115,55 @@ model AppSettings {
  iosSettings Json?
 }
 
+// model AndroidSettings {
+//   id String @id @default(auto()) @map("_id") @db.ObjectId
+//   androidSettingsId String @db.ObjectId
+//   privacyPolicy String?
+//   termsAndCondition String?
+//   appShareLink String?
+//   appDefalutPage String?
+//   appPublishingControl Boolean?
+//   hideLiveByVersionCode Int?
+//   adsType String?
+//   clickControl Int?
+//   googleAppId String?
+//   googleAppOpenAddCode String?
+//   googleBannerAdsCode String?
+//   googleInterstitialAdsCode String?
+//   googleNativeAdsCode String?
+//   googleRewardedAdsCode String?
+//   versionName String?
+//   versionCode String?
+//   forceUpdate Boolean?
+//   appUrl String?
+//   buttonText String?
+//   description String?
+//   appSettings  AppSettings  @relation(fields: [androidSettingsId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+// }
 
-model News {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
-  image String
-  date DateTime?
-}
+// model IosSettings {
+//   id String @id @default(auto()) @map("_id") @db.ObjectId
+//   iosSettingsId String @db.ObjectId
+//   privacyPolicy String?
+//   termsAndCondition String?
+//   appShareLink String?
+//   appRatingLink String?
+//   appDefalutPage String?
+//   appPublishingControl Boolean?
+//   hideLiveByVersionCode Int?
+//   adsType String?
+//   clickControl Int?
+//   googleAppId String?
+//   googleAppOpenAddCode String?
+//   googleBannerAdsCode String?
+//   googleInterstitialAdsCode String?
+//   googleNativeAdsCode String?
+//   googleRewardedAdsCode String?
+//   versionName String?
+//   versionCode String?
+//   forceUpdate Boolean?
+//   appUrl String?
+//   buttonText String?
+//   description String?
+//   appSettings  AppSettings  @relation(fields: [iosSettingsId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+// }
