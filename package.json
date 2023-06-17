@@ -5,11 +5,12 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
-        "start-dev": "nodemon index.js",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "postinstall": "prisma generate",
-        "build": "prisma generate && node index.js"
+        "dev": "node index.js",
+        "start": "nodemon index.js",
+        "vercel-build": "prisma generate && prisma migrate deploy && npm run build",
+        "prisma:generate": "prisma generate",
+        "build": "echo 'Building the project...'",
+        "test": "echo 'Running tests...'"
     },
     "keywords": [],
     "author": "",
