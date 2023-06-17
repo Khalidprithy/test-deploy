@@ -1,18 +1,14 @@
 {
     "name": "turbo-server",
     "version": "1.0.0",
-    "description": "",
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
-        "start-dev": "nodemon index.js",
-        "build": "prisma generate",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "node index.js"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "engines": {
+        "node": "14.x"
+    },
     "dependencies": {
         "@prisma/client": "^4.15.0",
         "bcrypt": "^5.1.0",
