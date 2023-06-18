@@ -77,6 +77,6 @@ export const updateAppSettings = async (req, res) => {
         return res.status(200).send({ message: 'App settings updated', updatedAppSettings });
     } catch (error) {
         console.error(error);
-        return res.status(500).send({ message: 'Failed to update app settingss, Try again' });
+        return res.status(500).send({ message: 'Failed to update app settings, Try again' });
     }
 };
