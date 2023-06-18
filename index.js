@@ -7,6 +7,7 @@ import userFixture from './app/routes/fixture.js';
 import highlightRoute from './app/routes/highlight.js';
 import userMatch from './app/routes/match.js';
 import userRoute from './app/routes/user.js';
+import prisma from './prisma/index.js';
 
 const app = express();
 // dotenv.config();
@@ -24,6 +25,18 @@ app.use('/api/v1', userMatch);
 app.use('/api/v1', userFixture);
 app.use('/api/v1', highlightRoute);
 app.use('/api/v1', appSettingRoute);
+
+
+app.get('/settings', async (req, res) => {
+    try {
+        const appSettings = await prisma.AppSettings.findMany();
+        return res.status(200).send(appSettings);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ message: 'Failed to fetch app settings, Try again' });
+    }
+});
+
 
 app.get('/', (req, res) => {
     res.send('Turboooo Root Server');
