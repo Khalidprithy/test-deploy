@@ -4,11 +4,9 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
-        "start-dev": "nodemon index.js"
-    },
-    "engines": {
-        "node": "14.x"
+        "start": "npm run prisma && node index.js",
+        "start-dev": "nodemon index.js",
+        "prisma": "prisma generate"
     },
     "dependencies": {
         "@prisma/client": "^4.15.0",
